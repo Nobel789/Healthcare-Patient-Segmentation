@@ -103,6 +103,11 @@ def find_uncertain_patients(df: pd.DataFrame, threshold: float = 0.35) -> pd.Dat
     return df[df["Confidence"] < threshold]
 
 
+def find_uncertain(df: pd.DataFrame, threshold: float = 0.35) -> pd.DataFrame:
+    """Backward-compatible alias for find_uncertain_patients."""
+    return find_uncertain_patients(df, threshold=threshold)
+
+
 @dataclass(frozen=True)
 class ManifoldDatasetConfig:
     seed: int = 42
