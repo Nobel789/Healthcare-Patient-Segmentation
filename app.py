@@ -4,20 +4,30 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
-from healthcare_workflows import (
-    ManifoldDatasetConfig,
-    RiskDatasetConfig,
-    action_rule,
-    add_actions,
-    add_confidence_scores,
-    cluster_patients,
-    create_diabetes_risk_dataset,
-    create_manifold_dataset,
-    preprocess_for_manifold,
-    run_tsne,
-    run_umap,
-    summarize_clusters,
-)
+try:
+    workflows = importlib.import_module("healthcare_workflows")
+except SyntaxError as exc:
+    st.set_page_config(page_title="Healthcare Patient Segmentation", layout="wide")
+    st.title("🏥 Healthcare Patient Segmentation")
+    st.error(
+        "The `healthcare_workflows.py` file contains invalid syntax (often unresolved merge markers like "
+        "`<<<<<<<`, `=======`, `>>>>>>>`). Please resolve that file and rerun the app."
+    )
+    st.code(f"{exc.__class__.__name__}: {exc}")
+    st.stop()
+
+ManifoldDatasetConfig = workflows.ManifoldDatasetConfig
+RiskDatasetConfig = workflows.RiskDatasetConfig
+action_rule = workflows.action_rule
+add_actions = workflows.add_actions
+add_confidence_scores = workflows.add_confidence_scores
+cluster_patients = workflows.cluster_patients
+create_diabetes_risk_dataset = workflows.create_diabetes_risk_dataset
+create_manifold_dataset = workflows.create_manifold_dataset
+preprocess_for_manifold = workflows.preprocess_for_manifold
+run_tsne = workflows.run_tsne
+run_umap = workflows.run_umap
+summarize_clusters = workflows.summarize_clusters
 
 st.set_page_config(page_title="Healthcare Patient Segmentation", layout="wide")
 st.title("🏥 Healthcare Patient Segmentation")
