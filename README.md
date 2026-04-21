@@ -17,6 +17,21 @@ streamlit run app.py
 
 Then open the local URL shown in terminal (usually `http://localhost:8501`).
 
+## Troubleshooting
+
+If Streamlit shows a `SyntaxError` in `healthcare_workflows.py` mentioning `<<<<<<< HEAD`, your local file still has unresolved Git merge markers.
+
+1. Open `healthcare_workflows.py`.
+2. Remove any conflict marker lines:
+   - `<<<<<<< HEAD`
+   - `=======`
+   - `>>>>>>> ...`
+3. Keep the final intended code, save, and run:
+
+```bash
+streamlit run app.py
+```
+
 ## CSV format for new data scoring
 
 Upload a `.csv` file with at least these columns:
