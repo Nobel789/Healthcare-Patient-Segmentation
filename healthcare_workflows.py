@@ -63,9 +63,14 @@ def add_actions(df: pd.DataFrame) -> pd.DataFrame:
     return updated
 
 
-def find_uncertain_patients(df: pd.DataFrame, threshold: float = 0.5) -> pd.DataFrame:
+def find_uncertain_patients(df: pd.DataFrame, threshold: float = 0.35) -> pd.DataFrame:
     """Return patients with confidence below a threshold."""
     return df[df["Confidence"] < threshold]
+
+
+def find_uncertain(df: pd.DataFrame, threshold: float = 0.35) -> pd.DataFrame:
+    """Backward-compatible alias for find_uncertain_patients."""
+    return find_uncertain_patients(df, threshold=threshold)
 
 
 @dataclass(frozen=True)

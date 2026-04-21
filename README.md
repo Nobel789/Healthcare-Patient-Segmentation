@@ -1,40 +1,56 @@
-# Healthcare-Patient-Segmentation
-# 🏥 Healthcare Analytics: Patient Risk Segmentation & Manifold Learning
+# Healthcare Patient Segmentation (Local Streamlit App)
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository provides a local Streamlit application to:
+- Train a baseline **K-Means** risk segmentation model on synthetic healthcare data.
+- Score **new patient data** (CSV upload or manual input) using `Glucose` and `BMI`.
+- View confidence and triage-style action recommendations.
+- Compare **t-SNE** and **UMAP** visualizations on synthetic high-dimensional healthcare features.
 
-## 📌 Project Overview
-This repository contains a two-part data science project focused on healthcare analytics. The primary goal is to demonstrate how unsupervised machine learning techniques can be applied to clinical data to identify at-risk patients and visualize complex, high-dimensional medical datasets.
+## Run locally
 
-1. **Diabetic Risk Segmentation:** Using K-Means clustering to group patients based on clinical markers (Glucose and BMI) and assigning clinical action thresholds based on mathematical confidence scores.
-2. **High-Dimensional Visualization:** A comparative analysis of **t-SNE** and **UMAP** for discovering hidden disease subtypes and mapping patient progression spectrums.
-
-## 🚀 Key Features & Methodologies
-* **Unsupervised Clustering (K-Means):** Segmented patients into Low, Medium, and High-risk categories.
-* **Clinical Confidence Scoring:** Calculated the Euclidean distance of patients to cluster centroids to generate a 0-1 "confidence score", bridging the gap between ML outputs and real-world clinical triage.
-* **Automated Triage Logic:** Created decision rules (e.g., Auto-care pathway vs. Manual Doctor Review) based on the model's confidence.
-* **Manifold Learning (t-SNE & UMAP):** Applied PCA preprocessing followed by non-linear dimensionality reduction to identify hidden clinical subgroups.
-
-## 📊 Visual Insights
-*(Note: Upload screenshots of your plots to the `images/` folder on GitHub and replace these placeholder links!)*
-
-**1. Diabetic Risk Clusters & Decision Boundaries**
-<img src="images/risk_clusters.png" width="600" alt="K-Means Risk Clusters">
-> *Patients closest to the centroid (red 'X') are routed to auto-care, while borderline patients are flagged for manual physician review.*
-
-**2. t-SNE vs. UMAP in Healthcare Data**
-<img src="images/tsne_vs_umap.png" width="600" alt="t-SNE and UMAP Comparison">
-> *t-SNE excels at separating distinct disease subtypes, while UMAP preserves the global structure, making it ideal for visualizing the continuous spectrum of disease progression.*
-
-## 📂 Repository Structure
-* `notebooks/01_Diabetic_Risk_Segmentation_KMeans.ipynb`: Contains the clustering logic, confidence score mathematical formulas, and triage threshold logic.
-* `notebooks/02_tSNE_vs_UMAP_Healthcare_Manifolds.ipynb`: Contains the comparative analysis of dimensionality reduction techniques on synthetic 10-feature patient data.
-
-## 🛠️ Installation & Usage
-To run these notebooks locally, clone the repository and install the required dependencies:
 ```bash
-git clone [https://github.com/YourUsername/Healthcare-Patient-Segmentation.git](https://github.com/YourUsername/Healthcare-Patient-Segmentation.git)
-cd Healthcare-Patient-Segmentation
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
+streamlit run app.py
+```
+
+Then open the local URL shown in terminal (usually `http://localhost:8501`).
+
+## CSV format for new data scoring
+
+Upload a `.csv` file with at least these columns:
+
+| Glucose | BMI |
+|--------:|----:|
+| 118     | 27  |
+| 172     | 33  |
+
+The app will return:
+- `Cluster`
+- `DistanceToCenter`
+- `Confidence`
+- `Action`
+
+## Repository files
+
+- `app.py` — Streamlit UI for model setup, scoring, and visualization.
+- `healthcare_workflows.py` — reusable ML workflow helpers.
+- `01_Diabetic_Risk_Segmentation_KMeans.ipynb.ipynb` — notebook artifact.
+- `02_tSNE_vs_UMAP_Healthcare_Manifolds.ipynb.ipynb` — notebook artifact.
+
+## Troubleshooting
+
+If deployment fails with a `SyntaxError` showing `<<<<<<< HEAD`, your local copy has unresolved merge markers.
+
+Run:
+
+```bash
+rg -n "<<<<<<<|=======|>>>>>>>"
+```
+
+If any lines are returned, remove those markers and keep only valid Python/JSON content, then rerun:
+
+```bash
+streamlit run app.py
+```
