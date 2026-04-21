@@ -13,8 +13,8 @@ This repository contains a two-part data science project focused on healthcare a
 
 ## 🚀 Key Features & Methodologies
 * **Unsupervised Clustering (K-Means):** Segmented patients into Low, Medium, and High-risk categories.
-* **Clinical Confidence Scoring:** Calculated the Euclidean distance of patients to cluster centroids to generate a 0-1 "confidence score", bridging the gap between ML outputs and real-world clinical triage.
-* **Automated Triage Logic:** Created decision rules (e.g., Auto-care pathway vs. Manual Doctor Review) based on the model's confidence.
+* **Clinical Confidence Scoring:** Converts centroid distances into normalized 0-1 confidence scores so confidence does not collapse to uniformly low values when features have large scales.
+* **Guardrailed Triage Logic:** Adds a low-confidence safety fallback (`Uncertain — clinician review required`) instead of auto-deploying low-confidence recommendations.
 * **Manifold Learning (t-SNE & UMAP):** Applied PCA preprocessing followed by non-linear dimensionality reduction to identify hidden clinical subgroups.
 
 ## 📊 Visual Insights
@@ -29,8 +29,9 @@ This repository contains a two-part data science project focused on healthcare a
 > *t-SNE excels at separating distinct disease subtypes, while UMAP preserves the global structure, making it ideal for visualizing the continuous spectrum of disease progression.*
 
 ## 📂 Repository Structure
-* `notebooks/01_Diabetic_Risk_Segmentation_KMeans.ipynb`: Contains the clustering logic, confidence score mathematical formulas, and triage threshold logic.
-* `notebooks/02_tSNE_vs_UMAP_Healthcare_Manifolds.ipynb`: Contains the comparative analysis of dimensionality reduction techniques on synthetic 10-feature patient data.
+* `01_Diabetic_Risk_Segmentation_KMeans.ipynb.ipynb`: Clustering flow, confidence scoring, collapse diagnosis, and triage rules.
+* `02_tSNE_vs_UMAP_Healthcare_Manifolds.ipynb.ipynb`: Comparative t-SNE vs. UMAP manifold workflow.
+* `healthcare_workflows.py`: Shared reusable functions used by both notebooks.
 
 ## 🛠️ Installation & Usage
 To run these notebooks locally, clone the repository and install the required dependencies:
