@@ -42,6 +42,17 @@ Why: this preserves the low-confidence guardrail default (`0.35`) from the modul
 
 ## 3) Recommended Git workflow (local)
 
+### One-command helper
+
+If your conflict hunks match the current PR patterns, you can run:
+
+```bash
+python resolve_pr_conflicts.py
+git add healthcare_workflows.py 01_Diabetic_Risk_Segmentation_KMeans.ipynb.ipynb
+git commit -m "Resolve known PR conflict hunks"
+```
+
+
 ```bash
 git checkout <your-pr-branch>
 git fetch origin
